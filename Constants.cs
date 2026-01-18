@@ -1,0 +1,61 @@
+﻿namespace EpubCleaner {
+	internal class Constants {
+		public const string _ansiReset = "\u001b[0m";
+		public const string _assumedPageRangeIsTheEntireDocument = "The assumed page range is the entire PDF. Copying the entire PDF is useless";
+		public const string _attemptingToRetrieveOPF = "Attempting to retrieve the OPF in the archive";
+		public const string _cns = "urn:oasis:names:tc:opendocument:xmlns:container";
+		public const string _collectingReferencesWithinSpine = "Collecting referenes within the 'spine' element";
+		public const string _containerXmlPath = "META-INF/container.xml";
+		public const string _endPageNotSpecified = "End page not specified, assuming the end page is the last page: ";
+		public const string _epub = ".epub";
+		public const string _epubExplanation = "The internals of an EPUB don't actually contain references to pages, due to the variance of device usage (e.g.: e-readers, desktop, iPhones, they'll all have a different number of pages when reading the EPUB";
+		public const string _epubExplanationPreface = "This is possible because the item references within the spine have lengths, representative of 'pages'";
+		public const string _epubGettingOverwritten = "An EPUB already exists at the specified output path. This will be overwritten";
+		public const string _epubSpineExplanation = "The 'spine' within the OPF (Open Package Format) defines the order of documents in a publication";
+		public const string _epubTrimmed = "_trimmed.epub";
+		public const string _error_couldntLocateOpf = "Could not locate OPF path in container.xml";
+		public const string _error_missingContainerXmlPath = "Missing META-INF/container.xml";
+		public const string _error_opfMissingPrefix = "Missing OPF at ";
+		public const string _error_opfMissingSpine = "No OPF <spine> element was found in the descendant nodes";
+		public const string _error_saving = "An error occured while trying to save the output. See: ";
+		public const string _expectedEpubExtension = "The input EPUB path was invalid. Expected file extension is '.epub'";
+		public const string _extractingContainer = "Extracting container.xml";
+		public const string _foundReferencesInManifest = "Found references in the manifest: ";
+		public const string _foundSpine = "Found the 'spine' element";
+		public const string _foundValidDocument = "Found a valid document at the given path";
+		public const string _fullpath = "full-path";
+		public const string _givenEndPageIsTooHigh = "You cannot provide an end page that is greater than total page count in the the document. If you aren't sure, leave it that input empty and we'll assume the end page is correct";
+		public const string _greaterThanEndIssue = "You cannot have a start page input greater than the end page, this is invalid";
+		public const string _ifOpfNamespaceAvailable = "If the OPF namespace is available, use it, or try without using a namespace";
+		public const string _inclusiveRangeIs = "Inclusive range is (";
+		public const string _inputEpubPathInvalid = @"The input EPUB path was invalid. Please use an absolute path. For example: C:\Documents\Important_Textbook.epub";
+		public const string _inputPdfPathFileNotFound = @"The input PDF path was invalid. Please use an absolute path. For example: C:\Documents\Important_Document.pdf";
+		public const string _inputPdfPathInvalidExtension = "The input PDF path was invalid. Expected file extension is '.pdf'";
+		public const string _itemRef = "itemref";
+		public const string _loadingPdfDocumentMessage = "Loading the PDF at the specified path";
+		public const string _negativePageNumbersInvalid = "Negative page numbers are impossible to work with";
+		public const string _neitherGivenMessage = "Provide the start and/or end page, to make an inclusive range. Neither were given specified; copying the entire PDF is useless";
+		public const string _neitherProvidedEpub = "Provide the start and/or end page, to make an inclusive range. Neither were given specified; copying the entire EPUB is useless";
+		public const string _oneOrMoreInvalidRangesProvided = "One or more invalid ranges were provided. Ensure you start at least at page 1, and ensure your end page less than the total page count";
+		public const string _openingEpub = "Opening .epub";
+		public const string _opfElementFound = "OPF element found";
+		public const string _opfLoaded = "OPF loaded";
+		public const string _opfNamespaceNotFound = "OPF namespace not found, proceeding without namespace";
+		public const string _opfPathFound = "OPF path found";
+		public const string _opfSpineHasNoItemRefEntries = "OPF spine has no itemref entries";
+		public const string _outputPdfDocumentPathUnspecified = "Specified out PDF path isn't given. Assuming the output directory to place the trimmed PDF document in is the same directory as the input PDF, with suffix '_trimmed'";
+		public const string _pdf = ".pdf";
+		public const string _pdfTrimmed = "_trimmed.pdf";
+		public const string _replacingSpineWithRange = "Replacing the 'spine' with the new range";
+		public const string _rootfile = "rootfile";
+		public const string _searchingDescendents = "Searching through the descendent elements for the 'spine'";
+		public const string _searchingForOpf = "Searching for OPF";
+		public const string _sinceTheOutputPathWasntSpecified = "Since the output path was not specified, the expected output path is ";
+		public const string _specifiedEndPageIsLessThanTheEndPage = "Specified end page is less than the start page. This is invalid";
+		public const string _spine = "spine";
+		public const string _startPageNotSpecified = "Start page not specificed; will assume we're beginning at page 1";
+		public const string _tryingToRemoveAllPagesInvalid = "One or more of the provided ranges suggests removing all of the pages from the document. This is invalid";
+		public const string _unspecifiedOutputEpubPath = "Unspecified output EPUB path. Assuming the output directory to place the trimmed EPUB in is the same directory as the input EPUB, with suffix '_trimmed'";
+
+	}
+}
