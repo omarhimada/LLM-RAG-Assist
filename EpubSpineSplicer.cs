@@ -1,4 +1,4 @@
-﻿using EpubCleaner;
+﻿using LLMRAGAssist;
 
 namespace LLMRAGAssist {
 	using System;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Playwright;
 
-namespace EpubCleaner {
+namespace LLMRAGAssist {
 	public static class HtmlToPdf {
 		public static async Task RenderPdfAsync(string htmlFilePath, string pdfOutPath) {
 			using IPlaywright playwright = await Playwright.CreateAsync();

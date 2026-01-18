@@ -1,9 +1,9 @@
 ﻿using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
-using static EpubCleaner.AnsiColorWriter;
-using static EpubCleaner.Constants;
+using static LLMRAGAssist.AnsiColorWriter;
+using static LLMRAGAssist.Constants;
 
-namespace EpubCleaner {
+namespace LLMRAGAssist {
 	public static class PdfPageTrimmer {
 		/// <summary>
 		/// Creates a new PDF file containing only the specified inclusive range of pages from the input PDF document.

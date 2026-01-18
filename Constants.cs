@@ -1,4 +1,4 @@
-﻿namespace EpubCleaner {
+﻿namespace LLMRAGAssist {
 	internal class Constants {
 		public const string _ansiReset = "\u001b[0m";
 		public const string _assumedPageRangeIsTheEntireDocument = "The assumed page range is the entire PDF. Copying the entire PDF is useless";

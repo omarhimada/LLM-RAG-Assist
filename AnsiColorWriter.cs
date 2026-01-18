@@ -1,5 +1,5 @@
-﻿using static EpubCleaner.Constants;
-namespace EpubCleaner {
+﻿using static LLMRAGAssist.Constants;
+namespace LLMRAGAssist {
 	/// <summary>
 	/// Provides static methods for writing text to the console in various ANSI colors using predefined color schemes.
 	/// </summary>
