@@ -10,3 +10,5 @@
 
 ### Includes a utility to convert EPUB to PDF
 - Convert the EPUB to PDF if your LLM model/system you're using only supports PDFs but you purchased an e-book and they gave you EPUB, for example.
+
+![NuGet Version](https://img.shields.io/nuget/v/LLM-RAG-Assist?style=flat)
