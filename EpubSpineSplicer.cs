@@ -11,7 +11,7 @@
 	/// <summary>
 	/// Provides static methods for extracting spine (reading order) of EPUB files.
 	/// </summary>
-	/// <remarks>You can use this method to try to find the 'keep start' and 'keep end' indices of your .epub.</remarks>
+	/// <remarks>You can use this method to try to find the 'keep start' and 'keep end' indices of each .epub.</remarks>
 	public static class EpubSpineSlicer {
 		public static Dictionary<int, string> GetAllSpineItems(string epubInPath) {
 			FileInfo fileInfo = new(epubInPath);
@@ -39,11 +39,11 @@
 
 			XNamespace cns = _cns;
 			Green(_searchingForOpf);
-			string? opfPath = containerXml.Descendants(cns + _rootfile)
+			string? opfPath =
+				containerXml.Descendants(cns + _rootfile)
 							.Attributes(_fullpath)
 							.Select(a => a.Value)
 							.FirstOrDefault();
-
 
 			if (opfPath == null) {
 				Red(_error_couldntLocateOpf);
@@ -165,7 +165,6 @@
 							.Select(a => a.Value)
 							.FirstOrDefault();
 
-
 			if (opfPath == null) {
 				Red(_error_couldntLocateOpf);
 				return false;
@@ -258,8 +257,6 @@
 				return false;
 			}
 			return true;
-
 		}
 	}
-
 }
