@@ -1,5 +1,5 @@
 ﻿namespace LLMRAGAssist {
-	internal class Constants {
+	public class Constants {
 		public const string _ansiReset = "\u001b[0m";
 		public const string _assumedPageRangeIsTheEntireDocument = "The assumed page range is the entire PDF. Copying the entire PDF is useless";
 		public const string _attemptingToRetrieveOPF = "Attempting to retrieve the OPF in the archive";
@@ -56,6 +56,5 @@
 		public const string _startPageNotSpecified = "Start page not specificed; will assume we're beginning at page 1";
 		public const string _tryingToRemoveAllPagesInvalid = "One or more of the provided ranges suggests removing all of the pages from the document. This is invalid";
 		public const string _unspecifiedOutputEpubPath = "Unspecified output EPUB path. Assuming the output directory to place the trimmed EPUB in is the same directory as the input EPUB, with suffix '_trimmed'";
-
 	}
 }

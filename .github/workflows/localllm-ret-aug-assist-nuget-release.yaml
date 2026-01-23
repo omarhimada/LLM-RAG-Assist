@@ -19,17 +19,17 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: Restore
-        run: dotnet restore ./LLMRAGAssist.slnx
+        run: dotnet restore ./LocalLLM-Ret-Aug-Assist.slnx
 
       - name: Build (Release)
-        run: dotnet build ./LLMRAGAssist.csproj --configuration Release --no-restore
+        run: dotnet build ./LocalLLM-Ret-Aug-Assist.csproj --configuration Release --no-restore
 
       - name: Pack to artifacts folder
         shell: pwsh
         run: |
           $version = [System.DateTime]::UtcNow.ToString("yyyy.MM.dd.HHmm")
           New-Item -ItemType Directory -Force -Path "./artifacts/nuget" | Out-Null
-          dotnet pack ./LLMRAGAssist.csproj `
+          dotnet pack ./LocalLLM-Ret-Aug-Assist.csproj `
             --configuration Release `
             --no-build `
             -p:PackageVersion=$version `

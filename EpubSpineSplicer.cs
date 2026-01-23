@@ -1,6 +1,4 @@
-﻿using LLMRAGAssist;
-
-namespace LLMRAGAssist {
+﻿namespace LLMRAGAssist {
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
@@ -10,7 +8,98 @@ namespace LLMRAGAssist {
 	using static AnsiColorWriter;
 	using static Constants;
 
+	/// <summary>
+	/// Provides static methods for extracting spine (reading order) of EPUB files.
+	/// </summary>
+	/// <remarks>You can use this method to try to find the 'keep start' and 'keep end' indices of your .epub.</remarks>
 	public static class EpubSpineSlicer {
+		public static Dictionary<int, string> GetAllSpineItems(string epubInPath) {
+			FileInfo fileInfo = new(epubInPath);
+			if (!fileInfo.Exists) {
+				Red(_inputEpubPathInvalid);
+				return [];
+			} else {
+				if (fileInfo.Extension == _epub) {
+					LightBlue(_foundValidDocument);
+				} else {
+					Red(_expectedEpubExtension);
+					return [];
+				}
+			}
+
+			Green(_openingEpub);
+			using ZipArchive inZip = ZipFile.OpenRead(epubInPath);
+
+			LightBlue(_extractingContainer);
+			ZipArchiveEntry containerEntry = inZip.GetEntry(_containerXmlPath) ?? throw new InvalidOperationException(_error_missingContainerXmlPath);
+			XDocument containerXml;
+			using (Stream s = containerEntry.Open()) {
+				containerXml = XDocument.Load(s);
+			}
+
+			XNamespace cns = _cns;
+			Green(_searchingForOpf);
+			string? opfPath = containerXml.Descendants(cns + _rootfile)
+							.Attributes(_fullpath)
+							.Select(a => a.Value)
+							.FirstOrDefault();
+
+
+			if (opfPath == null) {
+				Red(_error_couldntLocateOpf);
+				return [];
+			}
+
+			LightBlue(_opfPathFound);
+			Green(_attemptingToRetrieveOPF);
+			ZipArchiveEntry? opfEntry = inZip.GetEntry(opfPath!);
+
+			if (opfEntry == null) {
+				Red($"{_error_opfMissingPrefix}{opfPath}");
+				return [];
+			}
+			LightBlue(_opfElementFound);
+
+			XDocument opf;
+			using (Stream s = opfEntry.Open()) {
+				opf = XDocument.Load(s);
+			}
+			Purple(_opfLoaded);
+			Yellow(_ifOpfNamespaceAvailable);
+			XNamespace opfNs = opf.Root?.Name.Namespace ?? XNamespace.None;
+
+			if (opfNs == XNamespace.None) {
+				Orange(_opfNamespaceNotFound);
+			}
+
+			Teal(_epubSpineExplanation);
+			Green(_searchingDescendents);
+			XElement? spine = opf.Descendants($"{opfNs}{_spine}").FirstOrDefault();
+
+			if (spine == null) {
+				Red(_error_opfMissingSpine);
+				return [];
+			}
+			LightBlue(_foundSpine);
+			Green(_collectingReferencesWithinSpine);
+			List<XElement> itemrefs = spine.Elements($"{opfNs}{_itemRef}").ToList();
+			int spineCount = itemrefs.Count;
+
+			if (itemrefs.Count == 0) {
+				Red(_opfSpineHasNoItemRefEntries);
+				return [];
+			}
+
+			Dictionary<int, string> output = [];
+			int index = 1;
+			foreach (XElement xElement in itemrefs) {
+				output.Add(index, xElement.Name.LocalName);
+				index++;
+			}
+
+			return output;
+		}
+
 		/// <summary>
 		/// Modifies the spine of an EPUB file to retain only the content documents within the specified inclusive range, and
 		/// saves the result to a new EPUB file.
@@ -21,8 +110,8 @@ namespace LLMRAGAssist {
 		/// <param name="epubInPath">The path to the input EPUB file to be processed. Must refer to an existing file with a valid EPUB extension.</param>
 		/// <param name="epubOutPath">The path where the output EPUB file will be saved. If null, a default path is generated based on the input file
 		/// name.</param>
-		/// <param name="keepStartInclusive">The zero-based index of the first spine item to keep, inclusive. If null, defaults to 1. Must not be negative.</param>
-		/// <param name="keepEndInclusive">The zero-based index of the last spine item to keep, inclusive. If null, all items from the start index to the end
+		/// <param name="keepStartInclusive">Index of the first spine item to keep, inclusive. If null, defaults to 1. Must not be negative.</param>
+		/// <param name="keepEndInclusive">Index of the last spine item to keep, inclusive. If null, all items from the start index to the end
 		/// of the spine are kept. Must not be negative.</param>
 		/// <returns>true if the spine was successfully modified and the output EPUB was saved; otherwise, false.</returns>
 		/// <exception cref="InvalidOperationException">Thrown if the EPUB container file is missing required metadata, such as the container.xml file.</exception>
