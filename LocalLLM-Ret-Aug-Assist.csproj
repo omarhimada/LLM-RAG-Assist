@@ -13,6 +13,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>LLM,Retrieval,Augmented,ML,AI,Helper Library,PDF,EPUB,Converter,Splicer,Trimmer</PackageTags>
 		<Company>$(Authors),ReadyDOS</Company>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Content Include="README.md">
@@ -24,6 +25,10 @@
 	  <PackageReference Include="PDFsharp" Version="6.2.4" />
 	</ItemGroup>
 	<ItemGroup>
+	  <None Update="LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	  <None Update="README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
